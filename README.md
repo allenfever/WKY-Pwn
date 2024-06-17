@@ -12,6 +12,7 @@ PS：有问题可以提issue，请勿删除github链接哈=。=
 ~~已知问题：破解后玩客云无法自动关机~~  #该问题已被修复
 
 2024-5-21 更新中文脚本，整合53端口被占用脚本
+2024-6-17  更新IPV6修复，支持所有设备
 
 <br>
 
@@ -49,32 +50,33 @@ S805 类似架构设备等·····
 <br>
 
 ```sh
+#改地区
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+#更换源
+bash <(curl -sSL https://linuxmirrors.cn/main.sh) 
+
+#更新
 sudo apt update
+#安装git
 sudo apt install git -y
+
+#删除旧的
 sudo rm -r WKY-Pwn
-git clone https://github.com/sunlongr/WKY-Pwn 
+
+#下载pwn
+git clone https://github.com/allenfever/WKY-Pwn
+
+#拷贝pwn到自启动
 sudo mkdir /boot/firmware/
 cd WKY-Pwn
 sudo cp -r PPPwn /boot/firmware/
-cd /boot/firmware/PPPwn
-sudo chmod 777 *
-sudo bash install.sh
-```
-### 中国大陆用户可以执行以下汉化脚本
-```sh
-sudo cp /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime #修改时区为中国大陆  
-bash <(curl -sSL https://linuxmirrors.cn/main.sh)  #选1即可
-sudo apt update
-sudo apt install git unzip wget -y
-sudo rm -r WKY-Pwn-main main.zip WKY-Pwn
-wget https://mirror.ghproxy.com/https://github.com/sunlongr/WKY-Pwn/archive/refs/heads/main.zip  && unzip main.zip
-sudo mkdir /boot/firmware/
-cd WKY-Pwn-main
-sudo cp -r PPPwn /boot/firmware/
+
+#启动安装
 cd /boot/firmware/PPPwn
 sudo chmod 777 *
 sudo bash install_ch.sh
 ```
+
 <br>
 
 在安装过程中，您将被要求设置一些选项.<br>
